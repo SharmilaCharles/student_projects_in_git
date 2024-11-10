@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        #studentList { display: none; } /* Initially hide the student list */
+    </style>
+</head>
+<body>
+  
+  <div class="container-fluid p-5 bg-primary text-white text-center">
+    <div class="d-flex justify-content-end">
+      <div class="btn-group ms-auto">
+        <button type="button" class="btn btn-primary">Register</button>
+        <button type="button" class="btn btn-primary">Login</button>
+      </div>
+    </div>
+    <h1>STUDENT PROJECT DETAILS</h1>
+    <p>Manage Students</p> 
+  </div>
+
+  <div class="container pt-5">
+    <p style="font-size: 18px;">
+      The Student Project Management Portal is a comprehensive platform designed to streamline the management and collaboration process for student projects.
+    </p>
+    <br>
+    <div class="row">
+      <div class="col">
+        <button type="button" class="btn btn-primary w-100">View Projects</button>
+      </div>
+      <div class="col">
+        <!-- Add onclick to toggle student list -->
+        <button type="button" class="btn btn-primary w-100" onclick="toggleStudentList()">View Students</button>
+      </div>
+      <div class="col">
+        <button type="button" class="btn btn-primary w-100">Enroll as Mentor</button>
+      </div>
+    </div>
+    
+    <br>
+    <!-- Student List, initially hidden -->
+    <div id="studentList">
+      <h3>Student List</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Email</th>
+            <th scope="col">Primary Skill</th>
+            <th scope="col">Addl. Skill</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for stu in students %}
+          <tr>
+            <th>{{ forloop.counter }}</th>
+            <td><a href="{% url 'StuApp_detail' stu.id %}">{{stu.first_name}}</a></td>
+            <td>{{stu.phone}}</td>
+            <td>{{stu.email}}</td>
+            <td>{{stu.primary_skill}}</td>
+            <td>{{stu.addl_skill}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    // Toggle visibility of the student list
+    function toggleStudentList() {
+      const studentList = document.getElementById("studentList");
+      studentList.style.display = studentList.style.display === "none" ? "block" : "none";
+    }
+  </script>
+</body>
+</html>
